@@ -28,8 +28,8 @@ public class ProjectileDragging : MonoBehaviour {
     void Start()
     {
         LineRendererSetup();
-        rayToMouse = new Ray(catapultLineBack.position, Vector3.zero);
-        leftCatapultToProjectle = new Ray(catapultLineBack.position, Vector3.zero);
+        rayToMouse = new Ray(catapultLineFront.transform.position, Vector3.zero);
+        leftCatapultToProjectle = new Ray(catapultLineFront.transform.position, Vector3.zero);
         maxStretchSqr = maxStretch * maxStretch;
         CircleCollider2D circle = GetComponent<Collider2D>() as CircleCollider2D;
         circleRadius = circle.radius;
@@ -88,7 +88,7 @@ public class ProjectileDragging : MonoBehaviour {
     void Dragging()
     {
         Vector3 mouseWorldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 catapultToMouse = mouseWorldPoint - catapultLineBack.position;
+        Vector2 catapultToMouse = mouseWorldPoint - catapultLineFront.transform.position;
 
         if (catapultToMouse.sqrMagnitude > maxStretchSqr)
         {
@@ -106,7 +106,7 @@ public class ProjectileDragging : MonoBehaviour {
         leftCatapultToProjectle.direction = catapultToProjectile;
         Vector3 holdPoint = leftCatapultToProjectle.GetPoint(catapultToProjectile.magnitude + circleRadius);
         catapultLineFront.SetPosition(1, holdPoint);
-        catapultLineBack.Setposition(1, holdPoint);
+        catapultLineBack.SetPosition(1, holdPoint);
     }
 }
 
