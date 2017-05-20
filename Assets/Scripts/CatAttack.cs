@@ -5,9 +5,8 @@ using UnityEngine;
 public class CatAttack : MonoBehaviour
 {
     [SerializeField]
-    Sprite joe;
-    [SerializeField]
-    Sprite bob;
+    Sprite[] state;
+
     [SerializeField]
     PhysicsMaterial2D friction;
 
@@ -25,11 +24,11 @@ public class CatAttack : MonoBehaviour
         {
             //Debug.Log("Yey");
             attack = true;
-            gameObject.GetComponent<SpriteRenderer>().sprite = joe;
-            gameObject.AddComponent<BoxCollider2D>();
-            gameObject.GetComponent<BoxCollider2D>().sharedMaterial = friction;
+            gameObject.GetComponent<SpriteRenderer>().sprite = state[1];
+            gameObject.AddComponent<PolygonCollider2D>();
+            gameObject.GetComponent<PolygonCollider2D>().sharedMaterial = friction;
             gameObject.GetComponent<Rigidbody2D>().gravityScale = 10;
-           //Debug.Log("Hooray");
+           //Debug.Log("Hoora
         }
 
         Vector2 moveDirection = gameObject.GetComponent<Rigidbody2D>().velocity;

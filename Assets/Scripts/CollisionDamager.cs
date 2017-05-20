@@ -8,7 +8,8 @@ public class CollisionDamager : MonoBehaviour
     float health;
     [SerializeField]
     float immunity;
-    private float collisonPower;
+    public float collisonPower;
+    public float collisonPower2;
 
     void Start()
     {
@@ -20,17 +21,24 @@ public class CollisionDamager : MonoBehaviour
         //if (coll.gameObject.tag == "Damager" || coll.gameObject.tag == "Player")
         if (coll.gameObject.GetComponent<Rigidbody2D>() != null)
         {
-            collisonPower = KineticEnergy(coll.gameObject.GetComponent<Rigidbody2D>());
-            Debug.Log(this.gameObject.name + ", health = " + collisonPower);
-            if (collisonPower > immunity)
+            collisonPower2 = KineticEnergy(gameObject.GetComponent<Rigidbody2D>());
+            Debug.Log(collisonPower2);
+            //coll.gameObject.GetComponent<CollisionDamager>().collisonPower = collisonPower2;
+            if (gameObject.tag != "Ground")
             {
-                health -= collisonPower;
-                if (health <= 0)
+                collisonPower = KineticEnergy(coll.gameObject.GetComponent<Rigidbody2D>());
+                if (collisonPower + collisonPower2 > immunity)
                 {
-                    Destroy(gameObject);
+                    health -= collisonPower + collisonPower2;
+                    Debug.Log(gameObject.name + ", health = " + health);
+                    if (health <= 0)
+                    {
+                        Destroy(gameObject);
+                    }
                 }
             }
         }
+        //collisonPower = 0f;
     }
 
     public static float KineticEnergy(Rigidbody2D rb)
